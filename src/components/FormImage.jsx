@@ -23,6 +23,7 @@ inputFile:{
 export default ({file,handleSelectImage,error})=>{
     const classes=useStyles()
     const [image,setImage]=useState("https://www.nationalgeographic.com.es/medio/2018/02/27/tortuga__1280x720.jpg")
+    //this allow us to display the image and executes every time the file changes
     useEffect(
         ()=>{
             if(file && file.name){
@@ -34,36 +35,43 @@ export default ({file,handleSelectImage,error})=>{
             }
         },[file]
     )
-
+    //this handle it is used to fire the hidden input
     const handleUploadImage=()=>{
         document.getElementById("inputFile").click()
     }
+
     return (
         <>
-        <input type="file" 
+            <input 
+                type="file" 
                 max="1" 
                 className={classes.inputFile} 
                 id="inputFile" 
-                onChange={handleSelectImage}/>
-        <Grid container direction="row"
-            justify="space-between"
-            alignItems="flex-start">
-            <Typography variant="body2" color="textSecondary" component="p">
-                {`image: ${file?file.name:""}`}
-            </Typography>
-            <Button variant="contained" 
-                color="primary" 
-                className={classes.button}
-                onClick={handleUploadImage}>
-                 UPLOAD
-            </Button>
-        </Grid>
-        <img src={image} 
-            id="fileImg" 
-            className={classes.image} 
-            alt={file?file.name:"Tortules in the sea"}/><br/>
+                onChange={handleSelectImage}
+            />
+            <Grid 
+                container direction="row"
+                justify="space-between"
+                alignItems="flex-start"
+                >
+                <Typography variant="body2" color="textSecondary" component="p">
+                    {`image: ${file?file.name:""}`}
+                </Typography>
+                <Button variant="contained" 
+                    color="primary" 
+                    className={classes.button}
+                    onClick={handleUploadImage}>
+                     UPLOAD
+                </Button>
+            </Grid>
+            <img src={image} 
+                id="fileImg" 
+                className={classes.image} 
+                alt={file?file.name:"none"}
+            />
+            <br/>
             <Error text={error.file}/>
-         </>
+        </>
     )
 }
 

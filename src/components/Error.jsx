@@ -1,3 +1,6 @@
 import React from 'react'
 
-export default ({text})=>(<small style={{color:"red"}}>{text}</small>)
+export default ({text})=>(<small
+                            style={{color:"red"}}>
+                            {text}
+                        </small>)
