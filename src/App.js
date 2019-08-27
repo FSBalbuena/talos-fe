@@ -4,10 +4,12 @@ import './App.css';
 import AllPostsContainer from './containers/AllPostsContainer'
 import PostFormContainer from './containers/PostFormContainer'
 import HeaderContainer from './containers/HeaderContainer'
+import FooterContainer from './containers/FooterContainer'
 import CurrentPostContainer from './containers/CurrentPostContainer'
 function App() {
   return (
-    <div>
+    <>
+    <div style={{minHeight:"91vh"}}>
     <HeaderContainer/>
     <Switch>
       <Route path="/posts" exact component={AllPostsContainer}/>
@@ -16,6 +18,9 @@ function App() {
       <Redirect to="/posts"/>
     </Switch>
     </div>
+    <FooterContainer/>
+    
+    </>
     
   );
 }
