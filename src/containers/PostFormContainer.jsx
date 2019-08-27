@@ -4,8 +4,8 @@ import FormBody from '../components/FormBody'
 import FormTags from '../components/FormTags'
 import FormImage from '../components/FormImage'
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import axios from "axios"
+import FormSubmit from '../components/FormSubmit';
 
 const useStyles = theme => ({
   container:{
@@ -68,7 +68,8 @@ class PostFormContainer extends React.Component{
     }
     handleSelectImage=(e)=>{
         let file= e.target.files[0]
-        this.setState({file})
+        let error=!file?"Image is missing":""
+        this.setState(state=>({file,error:{...state.error,file:error,submit:""}}))
     }
     handleSubmitForm(){
         const {titleValue,descriptionValue,tags,file,error}=this.state
@@ -121,8 +122,7 @@ class PostFormContainer extends React.Component{
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button onClick={this.handleSubmitForm} color="primary">Enviar</Button>
-                    <p>{error.submit}</p>
+                    <FormSubmit error={error} handleSubmitForm={this.handleSubmitForm}/>
                 </Grid>
     
             </Grid>

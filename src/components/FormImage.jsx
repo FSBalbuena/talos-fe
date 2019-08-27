@@ -2,6 +2,7 @@ import React, {useEffect,useState} from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Error from './Error'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -19,12 +20,12 @@ inputFile:{
 }
 }));
 
-export default ({file,handleSelectImage})=>{
+export default ({file,handleSelectImage,error})=>{
     const classes=useStyles()
     const [image,setImage]=useState("https://www.nationalgeographic.com.es/medio/2018/02/27/tortuga__1280x720.jpg")
     useEffect(
         ()=>{
-            if(file.name){
+            if(file && file.name){
                 let reader = new FileReader();
             reader.onload = function (e) {
                 setImage(e.target.result)
@@ -48,7 +49,7 @@ export default ({file,handleSelectImage})=>{
             justify="space-between"
             alignItems="flex-start">
             <Typography variant="body2" color="textSecondary" component="p">
-                {`image: ${file.name?file.name:""}`}
+                {`image: ${file?file.name:""}`}
             </Typography>
             <Button variant="contained" 
                 color="primary" 
@@ -60,7 +61,8 @@ export default ({file,handleSelectImage})=>{
         <img src={image} 
             id="fileImg" 
             className={classes.image} 
-            alt={file.name?file.name:"Tortules in the sea"}/>
+            alt={file?file.name:"Tortules in the sea"}/><br/>
+            <Error text={error.file}/>
          </>
     )
 }

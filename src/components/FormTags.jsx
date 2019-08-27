@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
+import Error from './Error'
 
 const useStyles = makeStyles(theme => ({
     chip: {
@@ -11,9 +12,6 @@ const useStyles = makeStyles(theme => ({
       },
       button: {
         margin: theme.spacing(1),
-      },
-      error:{
-          color:"red"
       }
 }));
 export default ({tags,tagValue,
@@ -29,9 +27,8 @@ export default ({tags,tagValue,
             <Grid item xs={12} sm={8}>
                 <TextField
                 label="Tag"
-                className={classes.title}
                 placeholder="Enter a new tag"
-                helperText={<small className={classes.error}>{error.tag}</small>}
+                helperText={<Error text={error.tag} />}
                 margin="normal"
                 variant="outlined"
                 fullWidth
@@ -53,14 +50,14 @@ export default ({tags,tagValue,
             </Grid>
         </Grid>
         <Grid container justify="flex-start" alignItems="center">
-        {tags.length?
-        tags.map(tag=><Chip
-            label={tag}
-            key={tag}
-            onDelete={()=>handleDeleteTag(tag)}
-            className={classes.chip}
-          />)
-        :null}
+            {tags.length?
+                 tags.map(tag=><Chip
+                     label={tag}
+                     key={tag}
+                     onDelete={()=>handleDeleteTag(tag)}
+                     className={classes.chip}
+                   />)
+            :null}
         </Grid>
         
         
