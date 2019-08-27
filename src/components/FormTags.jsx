@@ -2,10 +2,9 @@ import React from 'react'
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
 import Error from './Error'
-
+import ShowTags from './ShowTags'
 const useStyles = makeStyles(theme => ({
     chip: {
         margin: theme.spacing(1),
@@ -49,18 +48,7 @@ export default ({tags,tagValue,
                 </Button>
             </Grid>
         </Grid>
-        <Grid container justify="flex-start" alignItems="center">
-            {tags.length?
-                 tags.map(tag=><Chip
-                     label={tag}
-                     key={tag}
-                     onDelete={()=>handleDeleteTag(tag)}
-                     className={classes.chip}
-                   />)
-            :null}
-        </Grid>
-        
-        
+        <ShowTags tags={tags} handleDeleteTag={handleDeleteTag} edit={true}/>
         </>
     )
 }

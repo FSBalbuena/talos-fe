@@ -73,7 +73,7 @@ class PostFormContainer extends React.Component{
     }
     handleSubmitForm(){
         const {titleValue,descriptionValue,tags,file,error}=this.state
-        if(Object.keys(error).length==0 && titleValue && descriptionValue && file.name){
+        if(Object.values(error).filter(e=>e!="").length==0 && titleValue && descriptionValue && file.name){
             let image= new FormData()
         image.append("image",file,file.name)
         axios.post("http://192.168.0.8:3000/posts",{title:titleValue,description:descriptionValue,tags})

@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import {Link} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -23,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default ({post:{photoUrl,title,description,id,tags}})=>{
+export default ({post:{photoUrl,title,description,id,tags},handleViewClick})=>{
   const classes = useStyles();
   const [hover,setHover]=useState(false)
   return (
@@ -36,6 +37,9 @@ export default ({post:{photoUrl,title,description,id,tags}})=>{
         title={title}
       />
       <CardContent>
+      <Typography variant="h6" color="textSecondary"  >
+          {title[0].toUpperCase()+title.slice(1)}
+        </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
           {description.slice(0,100)}
         </Typography>
@@ -49,7 +53,7 @@ export default ({post:{photoUrl,title,description,id,tags}})=>{
             <Typography variant="p" color="textSecondary" component="p">
             {tags.join(",")}
             </Typography>
-            <Button variant="contained" color="primary" size="small">VIEW</Button>
+            <Button variant="contained" onClick={handleViewClick} color="primary" size="small">VIEW</Button>
           </Grid>
       </CardActions>
     </Card>

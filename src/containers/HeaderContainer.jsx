@@ -4,11 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Add from '@material-ui/icons/Add';
-
+import HeaderPostButton from '../components/headerPostButton'
 import { makeStyles } from '@material-ui/core/styles';
-import { Fade } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,7 +32,7 @@ const HeaderContainer=(props)=> {
   const {location}=props
   const [showIcon,setShowIcon]=useState(true)
   const [showButton,setShowButton]=useState(true)
-  const [hover,setHover]=useState(false)
+
   useEffect(
     ()=>{
       let page=location.pathname.split("/").slice(-1)[0]
@@ -48,24 +45,10 @@ const HeaderContainer=(props)=> {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-        <img alt="Logo Talos" src="https://media.licdn.com/dms/image/C4E0BAQFsJ1SQcdEq6w/company-logo_200_200/0?e=2159024400&v=beta&t=iUqknzOj_AxHfceFglHWiRlIddI7Tjvl_jN0qnq-S4k" className={classes.avatar} />
           <Typography variant="h6" className={classes.title}>
             Challenge
           </Typography>
-          {showIcon?
-          <span onMouseEnter={()=>setHover(true)} 
-          onMouseLeave={()=>setHover(false)}
-          onClick={()=>props.history.push("/posts/new")}>
-          <Fade in={hover} timeout={1500}>
-            <Button color="inherit">Add New post</Button>
-          </Fade>
-          <Fade in={!hover} timeout={{enter:3000}}>
-           <IconButton className={classes.menuButton} 
-            color="inherit" aria-label="menu" 
-            ><Add /></IconButton>
-          </Fade>
-          </span>
-          :null}
+          <HeaderPostButton showIcon={showIcon}/>
           {showButton?
           <Button color="inherit">
           <Link className={classes.link} to="/posts">Posts</Link>

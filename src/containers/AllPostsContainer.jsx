@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     margin:"0 auto"
   }
 }));
-export default ()=>{
+export default (props)=>{
     const classes=useStyles()
     const [posts,setPosts]=useState([])
 
@@ -26,6 +26,9 @@ export default ()=>{
         },
         null
     )
+    const handleViewClick=function(id){
+        props.history.push(`/posts/${id}`)
+    }
     return (
             <Grid
                 container
@@ -37,7 +40,8 @@ export default ()=>{
                 >
                 {posts.length?posts.map(post=>(
                     <Grid key={post.id} item sm={4} xs={12}>
-                    <GridPost post={post}/>
+                    <GridPost post={post}
+                    handleViewClick={()=>handleViewClick(post.id)}/>
                     </Grid>
                 )):null}
                 
