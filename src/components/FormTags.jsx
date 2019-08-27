@@ -5,10 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Error from './Error'
 import ShowTags from './ShowTags'
+
 const useStyles = makeStyles(theme => ({
-    chip: {
-        margin: theme.spacing(1),
-      },
       button: {
         margin: theme.spacing(1),
       }
@@ -25,30 +23,35 @@ export default ({tags,tagValue,
         <Grid container justify="space-between" alignItems="center">
             <Grid item xs={12} sm={8}>
                 <TextField
-                label="Tag"
-                placeholder="Enter a new tag"
-                helperText={<Error text={error.tag} />}
-                margin="normal"
-                variant="outlined"
-                fullWidth
-                InputLabelProps={{
-                shrink: true,
-                }}
-                onChange={handleChangeTag}
-                value={tagValue}
+                    label="Tag"
+                    placeholder="Enter a new tag"
+                    helperText={<Error text={error.tag} />}
+                    margin="normal"
+                    variant="outlined"
+                    fullWidth
+                    InputLabelProps={{
+                    shrink: true,
+                    }}
+                    onChange={handleChangeTag}
+                    value={tagValue}
                 />
             </Grid>
             <Grid item xs={6} sm={4}>
-            <Button 
-                variant="contained" 
-                color="primary" 
-                className={classes.button}
-                onClick={handleTagSubmit}>
+                <Button 
+                    variant="contained" 
+                    color="primary"
+                    size="small"
+                    className={classes.button}
+                    onClick={handleTagSubmit}>
                     Add Tag
                 </Button>
             </Grid>
         </Grid>
-        <ShowTags tags={tags} handleDeleteTag={handleDeleteTag} edit={true}/>
-        </>
+        <ShowTags 
+            tags={tags} 
+            handleDeleteTag={handleDeleteTag} 
+            edit={true}
+        />
+    </>
     )
 }

@@ -13,10 +13,8 @@ const useStyles = makeStyles(theme => ({
     padding:"2vw",
     margin:"0 auto",
     minHeight:"65vh",
-    border:"none"
-  },
-  container:{
-    
+    border:"none",
+    wordBreak:"break-word"
   },
   media: {
     height: "30vh",
