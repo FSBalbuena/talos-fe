@@ -1,4 +1,5 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -23,9 +24,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default ()=> {
+const HeaderContainer=()=> {
   const classes = useStyles();
-
+  
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -43,3 +44,4 @@ export default ()=> {
     </div>
   );
 }
+export default withRouter(HeaderContainer) 
