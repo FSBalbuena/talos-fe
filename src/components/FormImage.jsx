@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
 image:{
     maxWidth:"100%",
     margin:"0 auto",
+    display:"block",
     marginTop:theme.spacing(2),
     marginBottom:theme.spacing(2),
     maxHeight:"30vh"
@@ -22,7 +23,7 @@ inputFile:{
 
 export default ({file,handleSelectImage,error})=>{
     const classes=useStyles()
-    const [image,setImage]=useState("https://www.nationalgeographic.com.es/medio/2018/02/27/tortuga__1280x720.jpg")
+    const [image,setImage]=useState("https://www.cvjp.org.ni/assets/no-image.png")
     //this allow us to display the image and executes every time the file changes
     useEffect(
         ()=>{

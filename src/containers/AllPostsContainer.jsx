@@ -11,8 +11,7 @@ export default (props)=>{
             .then(res=>res.data)
             .then(posts=>setPosts(posts))
             .catch(err=>console.log(err))
-        },
-        null
+        }
     )
 
     return <PostGridComponent posts={posts}/>

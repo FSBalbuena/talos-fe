@@ -10,8 +10,8 @@ const HeaderContainer=(props)=> {
   useEffect(
     ()=>{
       let page=location.pathname.split("/").slice(-1)[0]
-     page=="new"?setShowIcon(false):setShowIcon(true);
-     page=="posts"?setShowButton(false):setShowButton(true);
+     page==="new"?setShowIcon(false):setShowIcon(true);
+     page==="posts"?setShowButton(false):setShowButton(true);
     
     },[location]
   )

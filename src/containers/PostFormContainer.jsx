@@ -38,12 +38,12 @@ class PostFormContainer extends React.Component{
 
     handleTitleValue(e){
         let titleValue=e.target.value
-        let error=titleValue.trim()==""?"Title must have a word":""
+        let error=titleValue.trim()===""?"Title must have a word":""
         this.setState(state=>({titleValue,error:{...state.error,title:error,submit:""}}))
     }
     handleDescriptionValue(e){
         let descriptionValue=e.target.value
-        let error=descriptionValue.trim()==""?"Description must have at least a word":""
+        let error=descriptionValue.trim()===""?"Description must have at least a word":""
         this.setState(state=>({descriptionValue,error:{...state.error,description:error,submit:""}}))
     }
     handleTagValue(e){
@@ -53,7 +53,7 @@ class PostFormContainer extends React.Component{
     handleTagSubmit(){
         const {tagValue,tags}=this.state
         let error=""
-        if(tagValue.trim()==""){
+        if(tagValue.trim()===""){
             error="Tag must have at least a word"
         }else if(tags.indexOf(tagValue.toLowerCase())>=0){
             error="Tag it`s already added"
@@ -64,7 +64,7 @@ class PostFormContainer extends React.Component{
             this.setState(state=>({tagValue:"",tags:[...state.tags,tagValue.toLowerCase()],error:{...state.error,tag:error,submit:""}}))              
     }
     handleDeleteTag(deletedTag){
-        this.setState(state=>({tags:state.tags.filter(tag=>tag!=deletedTag)}))
+        this.setState(state=>({tags:state.tags.filter(tag=>tag!==deletedTag)}))
     }
     handleSelectImage=(e)=>{
         let file= e.target.files[0]
@@ -73,7 +73,7 @@ class PostFormContainer extends React.Component{
     }
     handleSubmitForm(){
         const {titleValue,descriptionValue,tags,file,error}=this.state
-        if(Object.values(error).filter(e=>e!="").length==0 && titleValue && descriptionValue && file.name){
+        if(Object.values(error).filter(e=>e!=="").length===0 && titleValue && descriptionValue && file.name){
             let image= new FormData()
         image.append("image",file,file.name)
         axios.post("http://192.168.0.8:3000/posts",{title:titleValue,description:descriptionValue,tags})
