@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Add from '@material-ui/icons/Add';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { Fade } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,12 +56,14 @@ const HeaderContainer=(props)=> {
           <span onMouseEnter={()=>setHover(true)} 
           onMouseLeave={()=>setHover(false)}
           onClick={()=>props.history.push("/posts/new")}>
-          {hover?
-           <Button color="inherit">Add a new post</Button>
-           :
+          <Fade in={hover} timeout={1500}>
+            <Button color="inherit">Add New post</Button>
+          </Fade>
+          <Fade in={!hover} timeout={{enter:3000}}>
            <IconButton className={classes.menuButton} 
             color="inherit" aria-label="menu" 
-            ><Add /></IconButton>}
+            ><Add /></IconButton>
+          </Fade>
           </span>
           :null}
           {showButton?
