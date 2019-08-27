@@ -4,10 +4,12 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-
+error:{
+    color:"red"
+}
 }));
 
-export default ({titleValue,handleChangeTitle,HandleChangeDescription,descriptionValue})=>{
+export default ({titleValue,error,handleChangeTitle,HandleChangeDescription,descriptionValue})=>{
     const classes=useStyles()
 
     return (
@@ -16,7 +18,7 @@ export default ({titleValue,handleChangeTitle,HandleChangeDescription,descriptio
         label="Title"
         className={classes.title}
         placeholder="Post Title ..."
-        helperText="(Some error maybe)"
+        helperText={<small className={classes.error}>{error.title}</small>}
         fullWidth
         margin="normal"
         variant="outlined"
@@ -31,7 +33,7 @@ export default ({titleValue,handleChangeTitle,HandleChangeDescription,descriptio
         rows={3}
         className={classes.description}
         placeholder="Post description ..."
-        helperText="(Some error maybe)"
+        helperText={<small className={classes.error}>{error.description}</small>}
         fullWidth
         multiline
         margin="normal"

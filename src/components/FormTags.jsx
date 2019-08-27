@@ -12,10 +12,14 @@ const useStyles = makeStyles(theme => ({
       button: {
         margin: theme.spacing(1),
       },
+      error:{
+          color:"red"
+      }
 }));
 export default ({tags,tagValue,
                 handleChangeTag,
                 handleTagSubmit,
+                error,
                 handleDeleteTag})=>{
     const classes=useStyles()
 
@@ -27,7 +31,7 @@ export default ({tags,tagValue,
                 label="Tag"
                 className={classes.title}
                 placeholder="Enter a new tag"
-                helperText="(Some error maybe)"
+                helperText={<small className={classes.error}>{error.tag}</small>}
                 margin="normal"
                 variant="outlined"
                 fullWidth

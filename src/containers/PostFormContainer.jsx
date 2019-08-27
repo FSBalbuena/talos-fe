@@ -24,7 +24,8 @@ class PostFormContainer extends React.Component{
             tagValue:"",
             titleValue:"",
             descriptionValue:"",
-            file:{}
+            file:{},
+            error:{}
         }
         this.handleTitleValue=this.handleTitleValue.bind(this)
         this.handleDescriptionValue=this.handleDescriptionValue.bind(this)
@@ -36,12 +37,14 @@ class PostFormContainer extends React.Component{
     }
 
     handleTitleValue(e){
-        let value=e.target.value
-        this.setState({titleValue:value})
+        let titleValue=e.target.value
+        let error=titleValue.trim()==""?"Title must have a word":""
+        this.setState(state=>({titleValue,error:{...state.error,title:error,submit:""}}))
     }
     handleDescriptionValue(e){
-        let value=e.target.value
-        this.setState({descriptionValue:value})
+        let descriptionValue=e.target.value
+        let error=descriptionValue.trim()==""?"Description must have at least a word":""
+        this.setState(state=>({descriptionValue,error:{...state.error,description:error,submit:""}}))
     }
     handleTagValue(e){
         let value=e.target.value
@@ -49,11 +52,16 @@ class PostFormContainer extends React.Component{
     }
     handleTagSubmit(){
         const {tagValue,tags}=this.state
-        if(tagValue && tags.indexOf(tagValue)==-1 ){
-            this.setState({tags:[...tags,tagValue],tagValue:""})
-        }else{
-            //put an error
+        let error=""
+        if(tagValue.trim()==""){
+            error="Tag must have at least a word"
+        }else if(tags.indexOf(tagValue.toLowerCase())>=0){
+            error="Tag it`s already added"
         }
+        error?
+            this.setState(state=>({error:{...state.error,tag:error,submit:""}}))
+        :
+            this.setState(state=>({tagValue:"",tags:[...state.tags,tagValue.toLowerCase()],error:{...state.error,tag:error,submit:""}}))              
     }
     handleDeleteTag(deletedTag){
         this.setState(state=>({tags:state.tags.filter(tag=>tag!=deletedTag)}))
@@ -63,18 +71,23 @@ class PostFormContainer extends React.Component{
         this.setState({file})
     }
     handleSubmitForm(){
-        const {titleValue,descriptionValue,tags,file}=this.state
-        let image= new FormData()
+        const {titleValue,descriptionValue,tags,file,error}=this.state
+        if(Object.keys(error).length==0 && titleValue && descriptionValue && file.name){
+            let image= new FormData()
         image.append("image",file,file.name)
         axios.post("http://192.168.0.8:3000/posts",{title:titleValue,description:descriptionValue,tags})
         .then(res=>res.data)
         .then(res=>axios.put(`http://192.168.0.8:3000/posts/${res.id}/picture`,image))
         .then(res=>this.props.history.push("/posts"))
         .catch(err=>console.log("Algo Salio Mal"))
+        }else{
+            this.setState(state=>({error:{...state.error,submit:"You Can`t Submit, form is incomplete"}}))
+        }
+        
     }
     render(){
         const {classes}=this.props
-        const {titleValue,descriptionValue,tags,tagValue,file}=this.state
+        const {titleValue,descriptionValue,tags,tagValue,file,error}=this.state
         return (
             <Grid
                 container
@@ -85,6 +98,7 @@ class PostFormContainer extends React.Component{
                 spacing={2}>
                 <Grid item xs={12} sm={8}>
                 <FormBody 
+                    error={error}
                     titleValue={titleValue}
                     descriptionValue={descriptionValue}
                     handleChangeTitle={this.handleTitleValue}
@@ -92,11 +106,13 @@ class PostFormContainer extends React.Component{
                 </Grid>
                 <Grid item xs={12} sm={4}>
                 <FormImage 
+                    error={error}
                     handleSelectImage={this.handleSelectImage}
                     file={file}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                 <FormTags 
+                    error={error}
                     tagValue={tagValue}
                     tags={tags}
                     handleChangeTag={this.handleTagValue}
@@ -105,7 +121,8 @@ class PostFormContainer extends React.Component{
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button onClick={this.handleSubmitForm}>Enviar</Button>
+                    <Button onClick={this.handleSubmitForm} color="primary">Enviar</Button>
+                    <p>{error.submit}</p>
                 </Grid>
     
             </Grid>
