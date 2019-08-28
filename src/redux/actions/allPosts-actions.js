@@ -4,9 +4,13 @@ import {
     POST_STOP_LOADING,
     POST_SET_ERRORS,
     POST_CLEAR_ERRORS,
-    POST_SET_DATA,
-    POST_CLEAR_DATA,
+    POST_SET_DATA
    } from '../constants';
+import {uiLoading,
+      uiClearErrors,
+      uiSetErrors,
+      uiStopLoading} from './ui-actions'
+
 
 const postLoading = () => ({
     type: POST_LOADING
@@ -28,9 +32,7 @@ const postSetData = (data) => ({
       type: POST_SET_DATA,
       data
     });
-const postClearData = () => ({
-      type: POST_CLEAR_DATA
-    });
+
   
 export const fetchAllPosts = () => dispatch =>{
   dispatch(postLoading())
@@ -41,4 +43,21 @@ export const fetchAllPosts = () => dispatch =>{
   .then(posts=>dispatch(postSetData(posts)))
   .catch(err=>dispatch(postSetErrors(err.response.data)))
   .then(()=>dispatch(postStopLoading()))
+}
+
+export const createNewPost=(body)=>dispatch=>{
+  let status={}
+  dispatch(uiLoading())
+  dispatch(uiClearErrors())
+      return axios.post("http://192.168.0.8:3000/posts",body.body)
+        .then(res=>res.data)
+        .then(res=>{
+          status.id=res.id;
+          return axios.put(`http://192.168.0.8:3000/posts/${res.id}/picture`,body.image)
+        })
+        .catch(err=>dispatch(uiSetErrors({message:"Algo Salio mal"})))
+        .then(()=>{
+          dispatch(uiStopLoading())
+          return status
+        })
 }

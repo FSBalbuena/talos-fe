@@ -1,27 +1,41 @@
-import React,{useState,useEffect} from 'react'
+import React,{useEffect} from 'react'
 import OnePost from '../components/OnePost'
-import axios from 'axios'
-import Error from '../components/Error'
-export default (props)=>{
-    const id=props.match.params.id;
-    const [post,setPost]=useState({})
-    const [error,setError]=useState(null)
+import {fetchCurrentPost,clearCurrentPost} from '../redux/actions/currentPost-actions'
+import {connect} from 'react-redux'
+import PostNotFound from '../components/PostNotFound';
+
+
+const CurrentPostContainer= (props)=>{
+    const {id,
+        post:{data,error,loading},
+        fetchCurrentPost,
+        clearCurrentPost}=props
+
     useEffect(
         ()=>{
-            axios.get(`http://192.168.0.8:3000/posts/${id}`)
-            .then(res=>res.data)
-            .then(post=>setPost(post))
-            .catch(err=>setError("Something its wrong with the id"))
+            fetchCurrentPost(id)
+            return ()=>{clearCurrentPost()}
         },[id])
-        
-        if(error){
-            return <Error text={error}/>
+
+        if(loading){
+            return "Loading"
+        }
+        else if(error.message){
+            return <PostNotFound/>
         }else{
             return (
-                <OnePost post={post}/>
+                <OnePost post={data} image={`http://192.168.0.8:3000/${data.photoUrl}`}/>
             )
         }
-        
-
-
 }
+
+const mapStateToProps=(state,ownProps)=>({
+    post:state.currentPost,
+    id:ownProps.match.params.id
+})
+const mapDispatchToProps=(dispatch)=>({
+    fetchCurrentPost:(id)=>dispatch(fetchCurrentPost(id)),
+    clearCurrentPost:()=>dispatch(clearCurrentPost())
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(CurrentPostContainer)

@@ -3,8 +3,7 @@ POST_LOADING,
 POST_STOP_LOADING,
 POST_SET_ERRORS,
 POST_CLEAR_ERRORS,
-POST_SET_DATA,
-POST_CLEAR_DATA
+POST_SET_DATA
 
 } from '../constants';
     
@@ -27,8 +26,6 @@ export default (state = initialState, action) => {
     return Object.assign({},state,{error:{}})
     case POST_SET_DATA:
     return Object.assign({},state,{data:action.data})
-    case POST_CLEAR_DATA:
-    return Object.assign({},state,{data:[]})
     default:
       return Object.assign({},state);
   }

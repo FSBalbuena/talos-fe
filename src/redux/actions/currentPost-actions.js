@@ -32,3 +32,18 @@ const currentPostClearData = () => ({
       type: CURRENT_POST_CLEAR_DATA
     });
 
+export const fetchCurrentPost = (id) => dispatch =>{
+  dispatch(currentPostLoading())
+  dispatch(currentPostClearErrors())
+  return axios.get(`http://192.168.0.8:3000/posts/${id}`)
+  .then(res=>res.data)
+  .then(post=>dispatch(currentPostSetData(post)))
+  .catch(err=>dispatch(currentPostSetErrors({message:"Something its wrong with the id"})))
+  .then(()=>dispatch(currentPostStopLoading()))
+}
+
+export const clearCurrentPost = () => dispatch =>{
+  dispatch(currentPostClearErrors())
+  dispatch(currentPostClearData())
+  dispatch(currentPostStopLoading())
+}

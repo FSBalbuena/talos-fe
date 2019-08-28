@@ -6,7 +6,7 @@ import Error from './Error'
 export default ({titleValue,
                 descriptionValue,
                 error,handleChangeTitle,
-                HandleChangeDescription
+                handleChangeDescription
                 })=>(
         <>
             <TextField
@@ -35,7 +35,7 @@ export default ({titleValue,
                 shrink: true,
                 }}
                 value={descriptionValue}
-                onChange={HandleChangeDescription}
+                onChange={handleChangeDescription}
             />
         </>
     )

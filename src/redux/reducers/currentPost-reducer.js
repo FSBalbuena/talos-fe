@@ -16,7 +16,19 @@ const initialState = {
     
 export default (state = initialState, action) => {
   switch(action.type) {
+  case CURRENT_POST_LOADING:
+  return Object.assign({},state,{loading:true})
+  case CURRENT_POST_STOP_LOADING:
+  return Object.assign({},state,{loading:false})
+  case CURRENT_POST_SET_ERRORS:
+  return Object.assign({},state,{error:action.data})
+  case CURRENT_POST_CLEAR_ERRORS:
+  return Object.assign({},state,{error:{}})
+  case CURRENT_POST_SET_DATA:
+  return Object.assign({},state,{data:action.data})
+  case CURRENT_POST_CLEAR_DATA:
+  return Object.assign({},state,{data:{}})
     default:
-      return state;
+      return Object.assign({},state);
   }
 }

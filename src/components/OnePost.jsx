@@ -1,8 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ShowTags from './ShowTags'
+import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
   card: {
     width:"80vw",
@@ -32,14 +32,14 @@ description:{
 
 }));
 
-export default ({post:{photoUrl,title,description,id,tags}})=> {
+export default ({post:{title,description,tags},image})=> {
 
   const classes = useStyles();
   return (
 
     <>
         <Grid container justify="center" alignItems="center" className={classes.container} >
-            <img src={`http://192.168.0.8:3000/${photoUrl}`} alt={title} className={classes.media} />
+            <img src={image} alt={title} className={classes.media} />
         </Grid>
         <Grid container direction="column" className={classes.card} justify="space-between">
             <Grid container direction="column">
