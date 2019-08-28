@@ -31,9 +31,9 @@ export default ({showButton,showIcon})=>{
                  Challenge
                </Typography>
                {showButton?
-               <Button color="inherit">
-               <Link className={classes.link} to="/posts">Posts</Link>
-               </Button>
+               <Link className={classes.link} to="/posts">
+                  <Button color="inherit">Posts </Button>
+                </Link>
                :null}
                <HeaderPostButton showIcon={showIcon}/>
              </Toolbar>

@@ -1,20 +1,26 @@
-import React, {useState,useEffect} from 'react'
-import axios from 'axios';
+import React, {useEffect} from 'react'
 import PostGridComponent from '../components/PostGridComponent';
+import PostGridSkeleton from '../components/PostGridSkeleton';
+import {fetchAllPosts} from '../redux/actions/allPosts-actions'
+import {connect} from 'react-redux'
 
-export default (props)=>{
-    const [posts,setPosts]=useState([])
+const AllPostContainer=(props)=>{
+    const {posts:{loading,data,error},fetchAllPosts} =props
+    useEffect(()=>{fetchAllPosts()},[])
 
-    useEffect(
-        ()=>{
-            axios.get("http://192.168.0.8:3000/posts")
-            .then(res=>res.data)
-            .then(posts=>setPosts(posts))
-            .catch(err=>console.log(err))
-        }
-    )
-
-    return <PostGridComponent posts={posts}/>
-
-
+    if(loading){
+            return <PostGridSkeleton/>
+    }else if(Object.keys(error).length){
+        return "Something bad happend"
+    }else{
+        return <PostGridComponent posts={data}/>
+    }
 }
+const mapStateToProps=(state,ownProps)=>({
+posts:state.allPosts
+})
+const mapDispatchToProps=(dispatch,ownProps)=>({
+    fetchAllPosts:()=>dispatch(fetchAllPosts())
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(AllPostContainer)

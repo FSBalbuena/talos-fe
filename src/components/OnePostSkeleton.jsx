@@ -1,8 +1,9 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import ShowTags from './ShowTags'
 import { makeStyles } from '@material-ui/core/styles';
+import Skeleton from '@material-ui/lab/Skeleton';
+
 const useStyles = makeStyles(theme => ({
   card: {
     width:"80vw",
@@ -24,37 +25,29 @@ postBody:{
 title:{
     textAlign:"center",
 },
-description:{
-    marginTop:"2vh",
-    textAlign:"left",
-    whiteSpace: "pre-line"
-},
 
 }));
 
-export default ({post:{title,description,tags},image})=> {
+export default ()=> {
 
   const classes = useStyles();
   return (
 
     <>
         <Grid container justify="center" alignItems="center" className={classes.container} >
-            <img src={image} alt={title} className={classes.media} />
+        <Skeleton variant="rect" className={classes.media} />
         </Grid>
         <Grid container direction="column" className={classes.card} justify="space-between">
             <Grid container direction="column">
-                <Typography variant="h3" color="textSecondary" className={classes.title} component="h1">
-                  {title?title[0].toUpperCase()+title.slice(1):null}
-                </Typography>
-                <Typography variant="h5" color="textSecondary" className={classes.description} component="p">
-                    {description}
-                </Typography>
+                <Skeleton height={20} width="60%" className={classes.title} />
+                  <Skeleton height={12} width="80%" />
+                  <Skeleton height={12} width="70%" />
+                  <Skeleton height={12} width="70%" />
+                  <Skeleton height={12} width="90%" />
             </Grid>
             <Grid container direction="column" className={classes.postBody}>
-                <Typography variant="h6" color="textSecondary" component="p">
-                    Tags
-                </Typography>
-                <ShowTags tags={tags} edit={false}/>
+            <Skeleton height={12} width="20%" />
+                <ShowTags tags={["####","####"]} edit={false}/>
             </Grid>
         </Grid>   
     </>
