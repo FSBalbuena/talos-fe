@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { UI_LOADING,
   UI_STOP_LOADING,
   UI_SET_ERRORS,

@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import GridPost from './GridPost';
+import PostPreview from './PostPreview';
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles(theme => ({
@@ -18,7 +18,7 @@ return (
     <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
             {posts.map(post => (
-                <GridPost key={post.id} post={post}/>
+                <PostPreview key={post.id} post={post}/>
             ))}
         </Grid>
   </Container>

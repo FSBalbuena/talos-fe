@@ -3,6 +3,7 @@ import OnePost from '../components/OnePost'
 import {fetchCurrentPost,clearCurrentPost} from '../redux/actions/currentPost-actions'
 import {connect} from 'react-redux'
 import PostNotFound from '../components/PostNotFound';
+import OnePostSkeleton from '../components/OnePostSkeleton';
 
 
 const CurrentPostContainer= (props)=>{
@@ -18,7 +19,7 @@ const CurrentPostContainer= (props)=>{
         },[id])
 
         if(loading){
-            return "Loading"
+            return <OnePostSkeleton/>
         }
         else if(error.message){
             return <PostNotFound/>

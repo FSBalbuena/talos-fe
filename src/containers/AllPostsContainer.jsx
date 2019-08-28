@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import PostGridComponent from '../components/PostGridComponent';
+import PostGridSkeleton from '../components/PostGridSkeleton';
 import {fetchAllPosts} from '../redux/actions/allPosts-actions'
-import LinearProgress from '@material-ui/core/LinearProgress';
 import {connect} from 'react-redux'
 
 const AllPostContainer=(props)=>{
@@ -9,7 +9,7 @@ const AllPostContainer=(props)=>{
     useEffect(()=>{fetchAllPosts()},[])
 
     if(loading){
-            return <LinearProgress/>
+            return <PostGridSkeleton/>
     }else if(Object.keys(error).length){
         return "Something bad happend"
     }else{
