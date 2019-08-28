@@ -1,5 +1,4 @@
 import {
-
 POST_LOADING,
 POST_STOP_LOADING,
 POST_SET_ERRORS,
@@ -18,7 +17,19 @@ const initialState = {
     
 export default (state = initialState, action) => {
   switch(action.type) {
+    case POST_LOADING:
+    return Object.assign({},state,{loading:true})
+    case POST_STOP_LOADING:
+    return Object.assign({},state,{loading:false})
+    case POST_SET_ERRORS:
+    return Object.assign({},state,{error:action.data})
+    case POST_CLEAR_ERRORS:
+    return Object.assign({},state,{error:{}})
+    case POST_SET_DATA:
+    return Object.assign({},state,{data:action.data})
+    case POST_CLEAR_DATA:
+    return Object.assign({},state,{data:[]})
     default:
-      return state;
+      return Object.assign({},state);
   }
 }

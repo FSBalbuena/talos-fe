@@ -32,8 +32,13 @@ const postClearData = () => ({
       type: POST_CLEAR_DATA
     });
   
-export const fetchAllPosts = () => dispatch =>
-    axios.get('/api/url')
-      .then(res => res.data)
-      .then(data => dispatch(exampleTypeAction(data)))
-      .catch(err=>dispatch(exampleErrors(err)));
+export const fetchAllPosts = () => dispatch =>{
+  dispatch(postLoading())
+  dispatch(postClearErrors())
+
+  return axios.get("http://192.168.0.8:3000/posts")
+  .then(res=>res.data)
+  .then(posts=>dispatch(postSetData(posts)))
+  .catch(err=>dispatch(postSetErrors(err.response.data)))
+  .then(()=>dispatch(postStopLoading()))
+}
