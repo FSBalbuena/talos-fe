@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Advice
 
 This app its ment to be used with a provided API.
-* Clone [this repository](http://localhost:3000)
+* Clone [this repository](https://github.com/talosdigital/talos-fe-technical-test)
 * navigate to server folder
 * Run the API reading the server folder settings
 
@@ -27,6 +27,6 @@ You will also see any lint errors in the console.
 
 ## Observations
 
-I didn`t understand the needs of our client, in respect of the fotter.
-If i let it fixed bottom it wouldn`t be mobile firts. So i put it at the end, and works fine.
+I didn\`t understand the needs of our client, in respect of the fotter.
+If i let it fixed bottom it wouldn\`t be mobile firts. So i put it at the end, and works fine.
 (If you want it sticky go to `Footer.jsx` line number 9 and change `top:0` for `bottom:0`)
