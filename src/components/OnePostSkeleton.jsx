@@ -47,7 +47,7 @@ export default ()=> {
             </Grid>
             <Grid container direction="column" className={classes.postBody}>
             <Skeleton height={12} width="20%" />
-                <ShowTags tags={["####","####"]} edit={false}/>
+                <ShowTags tags={["####","#####"]} edit={false}/>
             </Grid>
         </Grid>   
     </>
